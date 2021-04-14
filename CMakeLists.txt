@@ -4,10 +4,12 @@ project(test)
 set(CMAKE_CXX_STANDARD 17)
 
 
+
 include_directories(include)
 
 # parsing
 add_library(parsing STATIC src/parsing.cpp include/parsing.h)
+target_include_directories(parsing PUBLIC rapidxml-1.13)
 
 # pattern
 add_library(pattern STATIC src/pattern.cpp include/pattern.h)

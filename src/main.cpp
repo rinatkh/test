@@ -2,7 +2,7 @@
 #include "parsing.h"
 
 int main() {
-    const char* xmlFile = "/home/rinat/Documents/number 2/test";
+    const char* xmlFile = "test.xml";
     foo(xmlFile);
 return 0;
 }

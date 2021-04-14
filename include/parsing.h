@@ -1,10 +1,12 @@
 #ifndef PARSING_H
 #define PARSING_H
 
+#include <string.h>
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "/home/rinat/Downloads/rapidxml-1.13/rapidxml.hpp"
+#include "rapidxml.hpp"
 
 using namespace std;
 using namespace rapidxml;

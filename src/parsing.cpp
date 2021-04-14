@@ -1,13 +1,13 @@
 #include "parsing.h"
 
-xml_document<> doc;
-xml_node<> * root_node = NULL;
-
 
 
 void foo(const char *fileXml)
 {
     cout << "\nParsing my students data (sample.xml)....." << endl;
+
+    xml_document<> doc;
+    xml_node<> * root_node = NULL;
 
     // Read the sample.xml file
     ifstream theFile (fileXml);
@@ -24,6 +24,7 @@ void foo(const char *fileXml)
     for (xml_node<> * department_node = root_node->first_node("department"); department_node; department_node = department_node->next_sibling()) {
         cout << "\nDepartament =   " << department_node->first_attribute("name=")->value();
         cout << endl;
+        
 
 
         for (xml_node<> * employment_node = department_node->first_node("employment"); employment_node; employment_node = employment_node->next_sibling()) {
