@@ -6,10 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "rapidxml.hpp"
 
-using namespace std;
-using namespace rapidxml;
+#include "rapid/rapidxml.hpp"
 
 void foo(const char* fileXml);
 

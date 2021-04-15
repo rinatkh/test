@@ -3,18 +3,7 @@ project(test)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_subdirectory(libs)
+add_subdirectory(src)
 
 
-include_directories(include)
-
-# parsing
-add_library(parsing STATIC src/parsing.cpp include/parsing.h)
-target_include_directories(parsing PUBLIC rapidxml-1.13)
-
-# pattern
-add_library(pattern STATIC src/pattern.cpp include/pattern.h)
-
-
-# main
-add_executable(test src/main.cpp)
-target_link_libraries(test  parsing pattern ${CMAKE_THREAD_LIBS_INIT})
