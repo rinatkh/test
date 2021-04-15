@@ -24,7 +24,7 @@ void foo(const char *fileXml)
     for (xml_node<> * department_node = root_node->first_node("department"); department_node; department_node = department_node->next_sibling()) {
         cout << "\nDepartament =   " << department_node->first_attribute("name=")->value();
         cout << endl;
-        
+
 
 
         for (xml_node<> * employment_node = department_node->first_node("employment"); employment_node; employment_node = employment_node->next_sibling()) {
