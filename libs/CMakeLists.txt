@@ -1,2 +1,2 @@
 add_subdirectory(parser)
-add_subdirectory(pattern)
+add_subdirectory(entities)

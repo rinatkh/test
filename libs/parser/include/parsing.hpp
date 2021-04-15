@@ -1,5 +1,4 @@
-#ifndef PARSING_H
-#define PARSING_H
+#pragma once
 
 #include <string.h>
 #include <stdio.h>
@@ -11,4 +10,3 @@
 
 void foo(const char* fileXml);
 
-#endif  // PARSING_H

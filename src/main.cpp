@@ -1,8 +1,7 @@
-/*#include "pattern.h"
-#include "parsing.h"*/
+#include <parsing.hpp>
 
 int main() {
     const char* xmlFile = "test.xml";
-    //foo(xmlFile);
+    foo(xmlFile);
 return 0;
 }
