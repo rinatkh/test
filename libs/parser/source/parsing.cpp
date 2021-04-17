@@ -2,7 +2,7 @@
 #include "parsing.hpp"
 
 void foo(const char *fileXml) {
-    std::cout << "\nParsing my students data (sample.xml)....." << std::endl;
+    std::cout << "\nParsing my students data (test.xml)....." << std::endl;
 
     rapidxml::xml_document<> doc;
     rapidxml::xml_node<> *root_node = NULL;
@@ -23,6 +23,7 @@ void foo(const char *fileXml) {
             "department"); department_node; department_node = department_node->next_sibling()) {
 
         std::cout << "\nDepartament = " << static_cast<char *>(department_node->first_attribute("name")->value());
+        std::cout << std::endl;
 
         for (rapidxml::xml_node<> *employment_node = department_node->first_node(
                 "employments"); employment_node; employment_node = employment_node->next_sibling()) {
@@ -34,32 +35,38 @@ void foo(const char *fileXml) {
                 {
                     std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
                     std::cout << std::endl;
+                    break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("name"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
                     std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
                     std::cout << std::endl;
+                    break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("middleName"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
                     std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
                     std::cout << std::endl;
+                    break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("function"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
                     std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
                     std::cout << std::endl;
+                    break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("salary"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
                     std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
                     std::cout << std::endl;
+                    break;
                 }
 
                 std::cout << std::endl;
 
             }
             std::cout << std::endl;
+
         }
     }
 }

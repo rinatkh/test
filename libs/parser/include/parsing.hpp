@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 
+#include "entities.hpp"
 #include "rapid/rapidxml.hpp"
 
 void foo(const char* fileXml);
