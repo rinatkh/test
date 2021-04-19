@@ -5,21 +5,27 @@
 #include <list>
 #include <string>
 
+
 class Component {
 protected:
     Component *parent_;
 public:
-    virtual ~Component();
+    virtual ~Component() = default;
     void SetParent(Component *parent);
     Component *GetParent() const;
-    virtual void Add(Component *component);
-    virtual void Remove(Component *component);
+    virtual void Add(Component *component) = 0;
+    virtual void Remove(Component *component) = 0;
     virtual bool IsComposite() const;
-    virtual std::string Operation() const;
+    virtual std::string Operation() const = 0;
 };
+
+class Leaf;
+class Composite;
 
 class Leaf : public Component {
 public:
+
+    explicit Leaf (std::string surname, std::string name, std::string midleName, std::string function, int salary);
     std::string Operation() const override;
     void changeSurname(std::string surname);
     void changeName(std::string name);
@@ -43,14 +49,16 @@ class Composite : public Component {
 protected:
     std::list<Component *> children_;
 public:
+    Composite() = default;
+    explicit Composite (std::string name, int number, double midle);
     void Add(Component *component) override;
     void Remove(Component *component) override;
     bool IsComposite() const override;
     std::string Operation() const override;
     std::string getName ();
 private:
-    std::string name;
-    int number;
+    std::string name_;
+    int number_;
     double midleSalary;
 };
 

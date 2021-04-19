@@ -1,7 +1,7 @@
 
 #include "parsing.hpp"
 
-void foo(const char *fileXml) {
+void foo(const char *fileXml, Component *tree) {
     std::cout << "\nParsing my students data (test.xml)....." << std::endl;
 
     rapidxml::xml_document<> doc;
@@ -24,6 +24,7 @@ void foo(const char *fileXml) {
 
         std::cout << "\nDepartament = " << static_cast<char *>(department_node->first_attribute("name")->value());
         std::cout << std::endl;
+        Component *branch1 = new Composite;
 
         for (rapidxml::xml_node<> *employment_node = department_node->first_node(
                 "employments"); employment_node; employment_node = employment_node->next_sibling()) {
@@ -31,36 +32,40 @@ void foo(const char *fileXml) {
 
             for (rapidxml::xml_node<> *person_node = employment_node->first_node(
                     "employment"); person_node; person_node = person_node->next_sibling()) {
+
+                std::string surname;
+                std::string name;
+                std::string middleName;
+                std::string function;
+                int salary;
+
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("surname"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
-                    std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
-                    std::cout << std::endl;
+                    surname = static_cast<char *>(student_name_node->value());
                     break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("name"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
-                    std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
-                    std::cout << std::endl;
+                    name = static_cast<char *>(student_name_node->value());
                     break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("middleName"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
-                    std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
-                    std::cout << std::endl;
+                    middleName = static_cast<char *>(student_name_node->value());
                     break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("function"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
-                    std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
-                    std::cout << std::endl;
+                    function = static_cast<char *>(student_name_node->value());
                     break;
                 }
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("salary"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
-                    std::cout  << "Student Name =   " << static_cast<char *>(student_name_node->value());
-                    std::cout << std::endl;
+                    salary = std::stoi(student_name_node->value());
                     break;
                 }
+
+                Component *leaf_1 = new Leaf(surname, name, middleName, function, salary);
 
                 std::cout << std::endl;
 

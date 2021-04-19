@@ -9,5 +9,5 @@
 #include "entities.hpp"
 #include "rapid/rapidxml.hpp"
 
-void foo(const char* fileXml);
+void foo(const char* fileXml, Component *tree);
 

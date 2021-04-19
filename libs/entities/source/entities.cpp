@@ -1,133 +1,93 @@
 #include "entities.hpp"
 
-class Component {
 
-protected:
-    Component *parent_;
+void Component::SetParent(Component *parent) {
+    this->parent_ = parent;
+}
+Component * Component::GetParent() const {
+    return this->parent_;
+}
+bool Component::IsComposite() const {
+    return false;
+}
 
-public:
-    virtual ~Component() {}
-    void SetParent(Component *parent) {
-        this->parent_ = parent;
-    }
-    Component *GetParent() const {
-        return this->parent_;
-    }
-    virtual void Add(Component *component) {}
-    virtual void Remove(Component *component) {}
+std::string Leaf::Operation() const{
+    return "Leaf";
+}
 
-    virtual bool IsComposite() const {
-        return false;
-    }
+Leaf::Leaf (std::string surname, std::string name, std::string midleName, std::string function, int salary)
+    : surname_(surname)
+    , name_(name)
+    , midleName_(midleName)
+    , function_(function)
+    , salary_(salary) {};
+void Leaf::changeMidleName(std::string midleName) {
+    this->midleName_ = midleName;
+}
+void Leaf::changeFunction(std::string function) {
+    this->function_ = function;
+}
+void Leaf::changeSalary(int salary) {
+    this->salary_ = salary;
+}
+void Leaf::changeName(std::string name) {
+    this->name_ = name;
+}
+std::string Leaf::getSurname() {
+    return this->surname_;
+}
+std::string Leaf::getName() {
+    return this->name_;
+}
+std::string Leaf::getMidleName() {
+    return this->midleName_;
+}
+std::string Leaf::getFunction_() {
+    return this->function_;
+}
+int Leaf::getSalary() {
+    return salary_;
+}
+void Leaf::changeSurname(std::string surname) {
+    this->surname_ = surname;
+}
 
-    virtual std::string Operation() const = 0;
-};
+Composite::Composite (std::string name, int number, double midle)
+    : name_(name)
+    , number_(number)
+    , midleSalary(midle) {}
+void Composite::Add(Component *component) {
+    this->children_.push_back(component);
+    component->Component::SetParent(this);
+}
+void Composite::Remove(Component *component) {
+    children_.remove(component);
+    component->Component::SetParent(nullptr);
+}
+bool Composite::IsComposite() const {
+    return true;
+}
 
-class Leaf : public Component {
-public:
-    std::string Operation() const override {
-        return "Leaf";
-    }
-
-    void changeSurname(std::string surname) {
-        this->surname_ = surname;
-    }
-
-    void changeName(std::string name) {
-        this->name_ = name;
-    }
-
-    void changeMidleName(std::string midleName) {
-        this->midleName_ = midleName;
-    }
-
-    void changeFunction(std::string function) {
-        this->function_ = function;
-    }
-
-    void changeSalary(int salary) {
-        this->salary_ = salary;
-    }
-
-    std::string getSurname() {
-        return this->surname_;
-    }
-
-    std::string getName() {
-        return this->name_;
-    }
-
-    std::string getMidleName() {
-        return this->midleName_;
-    }
-
-    std::string getFunction_() {
-        return this->function_;
-    }
-
-    int getSalary() {
-        return salary_;
-    }
-
-private :
-    std::string surname_;
-    std::string name_;
-    std::string midleName_;
-    std::string function_;
-    int salary_;
-
-};
-
-class Composite : public Component {
-
-protected:
-    std::list<Component *> children_;
-
-public:
-
-    void Add(Component *component) override {
-        this->children_.push_back(component);
-        component->SetParent(this);
-    }
-
-    void Remove(Component *component) override {
-        children_.remove(component);
-        component->SetParent(nullptr);
-    }
-
-    bool IsComposite() const override {
-        return true;
-    }
-
-    std::string Operation() const override {
-        std::string result;
-        for (const Component *c : children_) {
-            if (c == children_.back()) {
-                result += c->Operation();
-            } else {
-                result += c->Operation() + "+";
-            }
+std::string Composite::Operation() const{
+    std::string result;
+    for (const Component *c : children_) {
+        if (c == children_.back()) {
+            result += c->Operation();
+        } else {
+            result += c->Operation() + "+";
         }
-        return "Branch(" + result + ")";
     }
-
-    std::string getName () {
-        return this->name;
-    }
-private:
-    std::string name;
-    int number;
-    double midleSalary;
-
-};
+    return "Branch(" + result + ")";
+}
+std::string Composite::getName () {
+    return this->name_;
+}
 
 void ClientCode(Component *component) {
     // ...
     std::cout << "RESULT: " << component->Operation();
     // ...
 }
-
-
 void ClientCode2(Component *component1, Component *component2) {
     // ...
     if (component1->IsComposite()) {
