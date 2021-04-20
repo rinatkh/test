@@ -4,9 +4,10 @@
 int main() {
     Component *tree = new Composite;
 
-    const char* xmlFile = "test.xml";
-    foo(xmlFile, tree);
-    ClientCode(tree);
+    const std::string & xmlFile = "test.xml";
+    pars(xmlFile, tree);
+    //ClientCode(tree);
+    CreateXml(xmlFile, tree);
     delete tree;
 return 0;
 }
