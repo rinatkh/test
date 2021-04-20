@@ -10,13 +10,19 @@ class Component {
 protected:
     Component *parent_;
 public:
-    virtual ~Component() = default;
+
+    virtual ~Component() {};
     void SetParent(Component *parent);
     Component *GetParent() const;
-    virtual void Add(Component *component) = 0;
-    virtual void Remove(Component *component) = 0;
+    virtual void Add(Component *component) {};
+    virtual void Remove(Component *component) {};
+    virtual void RemoveAll() {};
     virtual bool IsComposite() const;
     virtual std::string Operation() const = 0;
+
+    virtual void changeNameDepartment(std::string name){};
+    virtual void changeNumberDepartment(int number){};
+    virtual void changeMidleSalaryOfDepartment(double midleSalary){};
 };
 
 class Leaf;
@@ -32,11 +38,11 @@ public:
     void changeMidleName(std::string midleName);
     void changeFunction(std::string function);
     void changeSalary(int salary);
-    std::string getSurname();
-    std::string getName();
-    std::string getMidleName();
-    std::string getFunction_();
-    int getSalary();
+    std::string getSurname() const;
+    std::string getName() const;
+    std::string getMidleName() const;
+    std::string getFunction_() const;
+    int getSalary() const;
 private :
     std::string surname_;
     std::string name_;
@@ -53,13 +59,20 @@ public:
     explicit Composite (std::string name, int number, double midle);
     void Add(Component *component) override;
     void Remove(Component *component) override;
+    void RemoveAll() override;
     bool IsComposite() const override;
     std::string Operation() const override;
-    std::string getName ();
+    void changeNameDepartment(std::string name);
+    void changeNumberDepartment(int number);
+    void changeMidleSalaryOfDepartment(double midleSalary);
+    std::string getName () const;
+    int getNumber() const;
+    double getMiddleSalary() const;
+
 private:
     std::string name_;
     int number_;
-    double midleSalary;
+    double midleSalary_;
 };
 
 void ClientCode(Component *component);

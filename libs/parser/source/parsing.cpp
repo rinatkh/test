@@ -2,8 +2,6 @@
 #include "parsing.hpp"
 
 void foo(const char *fileXml, Component *tree) {
-    std::cout << "\nParsing my students data (test.xml)....." << std::endl;
-
     rapidxml::xml_document<> doc;
     rapidxml::xml_node<> *root_node = NULL;
 
@@ -22,13 +20,17 @@ void foo(const char *fileXml, Component *tree) {
     for (rapidxml::xml_node<> *department_node = root_node->first_node(
             "department"); department_node; department_node = department_node->next_sibling()) {
 
-        std::cout << "\nDepartament = " << static_cast<char *>(department_node->first_attribute("name")->value());
-        std::cout << std::endl;
-        Component *branch1 = new Composite;
+        std::string nameDepartment = static_cast<char *>(department_node->first_attribute("name")->value());
+        Component *branch = new Composite(nameDepartment, 0, 0);
+
+
+
 
         for (rapidxml::xml_node<> *employment_node = department_node->first_node(
                 "employments"); employment_node; employment_node = employment_node->next_sibling()) {
-
+            int salary = 0;
+            int number = 0;
+            double summ = 0;
 
             for (rapidxml::xml_node<> *person_node = employment_node->first_node(
                     "employment"); person_node; person_node = person_node->next_sibling()) {
@@ -37,7 +39,7 @@ void foo(const char *fileXml, Component *tree) {
                 std::string name;
                 std::string middleName;
                 std::string function;
-                int salary;
+
 
                 for(rapidxml::xml_node<>* student_name_node = person_node->first_node("surname"); student_name_node; student_name_node = student_name_node->next_sibling())
                 {
@@ -65,13 +67,14 @@ void foo(const char *fileXml, Component *tree) {
                     break;
                 }
 
-                Component *leaf_1 = new Leaf(surname, name, middleName, function, salary);
-
-                std::cout << std::endl;
-
+                Component *leaf = new Leaf(surname, name, middleName, function, salary);
+                branch->Add(leaf);
+                number++;
+                summ+=salary;
             }
-            std::cout << std::endl;
-
+            branch->changeNumberDepartment(number);
+            branch->changeMidleSalaryOfDepartment(summ/number);
+            tree->Add(branch);
         }
     }
 }

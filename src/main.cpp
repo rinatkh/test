@@ -6,5 +6,7 @@ int main() {
 
     const char* xmlFile = "test.xml";
     foo(xmlFile, tree);
+    ClientCode(tree);
+    delete tree;
 return 0;
 }

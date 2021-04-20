@@ -11,8 +11,14 @@ bool Component::IsComposite() const {
     return false;
 }
 
-std::string Leaf::Operation() const{
-    return "Leaf";
+std::string Leaf::Operation() const {
+
+    return  "\n\t" + this->getSurname() + "\n" +
+            "\t" + this->getName() + "\n" +
+            "\t" + this->getMidleName() + "\n" +
+            "\t" + this->getFunction_() + "\n" +
+            "\t" + std::to_string(this->getSalary()) + "\n";
+
 }
 
 Leaf::Leaf (std::string surname, std::string name, std::string midleName, std::string function, int salary)
@@ -33,19 +39,19 @@ void Leaf::changeSalary(int salary) {
 void Leaf::changeName(std::string name) {
     this->name_ = name;
 }
-std::string Leaf::getSurname() {
+std::string Leaf::getSurname() const {
     return this->surname_;
 }
-std::string Leaf::getName() {
+std::string Leaf::getName() const {
     return this->name_;
 }
-std::string Leaf::getMidleName() {
+std::string Leaf::getMidleName() const {
     return this->midleName_;
 }
-std::string Leaf::getFunction_() {
+std::string Leaf::getFunction_() const {
     return this->function_;
 }
-int Leaf::getSalary() {
+int Leaf::getSalary() const{
     return salary_;
 }
 void Leaf::changeSurname(std::string surname) {
@@ -55,7 +61,7 @@ void Leaf::changeSurname(std::string surname) {
 Composite::Composite (std::string name, int number, double midle)
     : name_(name)
     , number_(number)
-    , midleSalary(midle) {}
+    , midleSalary_(midle) {}
 void Composite::Add(Component *component) {
     this->children_.push_back(component);
     component->Component::SetParent(this);
@@ -64,6 +70,9 @@ void Composite::Remove(Component *component) {
     children_.remove(component);
     component->Component::SetParent(nullptr);
 }
+void Composite::RemoveAll() {
+    delete this;
+}
 bool Composite::IsComposite() const {
     return true;
 }
@@ -71,16 +80,36 @@ bool Composite::IsComposite() const {
 std::string Composite::Operation() const{
     std::string result;
     for (const Component *c : children_) {
+
         if (c == children_.back()) {
             result += c->Operation();
         } else {
-            result += c->Operation() + "+";
+            result += c->Operation();
         }
     }
-    return "Branch(" + result + ")";
+    return  "Департамент " + this->getName() + "\n" +
+            "Количество сотрудников = " +  std::to_string(this->getNumber()) + "\n" +
+            "Средняя зарплата =  " + std::to_string(this->getMiddleSalary()) + "\n\nСотрудники :" +  result;
+
+
 }
-std::string Composite::getName () {
+std::string Composite::getName () const{
     return this->name_;
+}
+int Composite::getNumber() const {
+    return this->number_;
+}
+double Composite::getMiddleSalary() const {
+    return this->midleSalary_;
+}
+void Composite::changeNameDepartment(std::string name) {
+    this->name_ = name;
+}
+void Composite::changeNumberDepartment(int number) {
+    this->number_ = number;
+}
+void Composite::changeMidleSalaryOfDepartment(double midleSalary){
+    this->midleSalary_ = midleSalary;
 }
 
 void ClientCode(Component *component) {
