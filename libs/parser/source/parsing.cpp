@@ -79,7 +79,7 @@ void pars(const std::string &fileXml, Component *tree) {
 
 
 void CreateXml(const std::string &XMLFileName, Component *tree) {
-    std::setlocale(LC_ALL, "");
+
     rapidxml::xml_document<> doc;
 
     rapidxml::xml_node<> *root = doc.allocate_node(rapidxml::node_pi,
@@ -91,7 +91,8 @@ void CreateXml(const std::string &XMLFileName, Component *tree) {
 
     for (const auto &branch : tree->getChildren()) {
         auto depart = dynamic_cast<const Composite *>(branch.get());
-        rapidxml::xml_node<> *comment = doc.allocate_node(rapidxml::node_element, "department", depart->getName().c_str());
+        rapidxml::xml_node<> *comment = doc.allocate_node(rapidxml::node_element, "department", nullptr);
+        comment->append_attribute(doc.allocate_attribute("name", depart->getName().c_str()));
         node->append_node(comment);
 
 
@@ -104,16 +105,19 @@ void CreateXml(const std::string &XMLFileName, Component *tree) {
 
             employment->append_node(doc.allocate_node(rapidxml::node_element, "surname", empl->getSurname().c_str()));
             employment->append_node(doc.allocate_node(rapidxml::node_element, "name", empl->getName().c_str()));
-            employment->append_node(doc.allocate_node(rapidxml::node_element, "middleName", empl->getMidleName().c_str()));
-            employment->append_node(doc.allocate_node(rapidxml::node_element, "function", empl->getFunction_().c_str()));
-            employment->append_node(doc.allocate_node(rapidxml::node_element, "salary", std::to_string(empl->getSalary()).c_str()));
+            employment->append_node(
+                    doc.allocate_node(rapidxml::node_element, "middleName", empl->getMidleName().c_str()));
+            employment->append_node(
+                    doc.allocate_node(rapidxml::node_element, "function", empl->getFunction_().c_str()));
+            employment->append_node(
+                    doc.allocate_node(rapidxml::node_element, "salary", std::to_string(empl->getSalary()).c_str()));
         }
     }
 
     // Print the entire XML content
     std::string text;
     rapidxml::print(std::back_inserter(text), doc, 0);
-    std::cout << text << std::endl;
+    //std::cout << text << std::endl;
 
     // Output DOM to file
     std::ofstream outfile(XMLFileName.c_str(), std::ios::out);

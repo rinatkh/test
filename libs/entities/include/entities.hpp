@@ -17,9 +17,9 @@ public:
 
     Component *GetParent() const;
 
-    virtual void Add(std::shared_ptr <Component> component) {};
+    virtual void Add(std::shared_ptr<Component> component) {};
 
-    virtual void Remove(std::shared_ptr <Component> component) {};
+    virtual void Remove(std::shared_ptr<Component> component) {};
 
     virtual void RemoveAll() {};
 
@@ -29,14 +29,14 @@ public:
 
     virtual std::string Operation() const = 0;
 
-    virtual void changeNameDepartment(std::string name) {};
+    virtual void changeNameDepartment(std::string name)  {};
 
     virtual void changeNumberDepartment(int number) {};
+
     virtual const std::list<std::shared_ptr<Component>> &getChildren() const = 0;
 
     virtual void changeMidleSalaryOfDepartment(double midleSalary) {};
 };
-
 
 
 class Leaf : public Component {
@@ -65,7 +65,7 @@ public:
 
     std::string getFunction_() const;
 
-    const std::list<std::shared_ptr<Component>> &getChildren() const override {return ownership_;}
+    const std::list<std::shared_ptr<Component>> &getChildren() const override { return ownership_; }
 
     int getSalary() const;
 
@@ -92,9 +92,9 @@ public:
 
     explicit Composite(std::string name, int number, double midle);
 
-    void Add(std::shared_ptr <Component> component) override;
+    void Add(std::shared_ptr<Component> component) override;
 
-    void Remove(std::shared_ptr <Component> component) override;
+    void Remove(std::shared_ptr<Component> component) override;
 
     void RemoveAll() override;
 
@@ -120,4 +120,12 @@ private:
     double midleSalary_;
 };
 
-void ClientCode(Component *component);
+void printTree(Component *component);
+void changeNameDepartment (Component *tree);
+void removeNDepartment(Component *tree);
+void changeSurnameEmployee(Component *tree);
+void changeNameEmployee(Component *tree);
+void changeMiddleNameEmployee(Component *tree);
+void changeFunctionEmployee(Component *tree);
+void changeSalaryEmployee(Component *tree);
+void removingEmployee(Component *tree);
